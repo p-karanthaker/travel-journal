@@ -3,36 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_top">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/new_photo"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="New Photo" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/collections"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Collections" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Search" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_bottom">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Settings" />
+    </group>
 
 </menu>

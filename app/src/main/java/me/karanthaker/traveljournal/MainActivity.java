@@ -79,19 +79,31 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        View view = findViewById(R.id.drawer_layout);
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id) {
+            case R.id.home:
+                // TODO: Start main activity.
+                Snackbar.make(view, "Main Activity", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.new_photo:
+                // TODO: Start upload activity.
+                Snackbar.make(view, "Upload Activity", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.collections:
+                // TODO: Start collections activity.
+                Snackbar.make(view, "Collections Activity", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.search:
+                // TODO: Start search activity.
+                Snackbar.make(view, "Search Activity", Snackbar.LENGTH_SHORT).show();
+                break;
+            case R.id.settings:
+                // TODO: Start settings activity.
+                Snackbar.make(view, "Settings Activity", Snackbar.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
