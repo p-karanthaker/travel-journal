@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,18 +14,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.database.AppDatabase;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialise database
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+        db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, getString(R.string.database)).build();
 
         setContentView(R.layout.activity_main);
@@ -96,6 +105,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.new_photo:
                 // TODO: Start upload activity.
+                db.photoDao().insertAll(new Photo("/dummy/path/pic.png"));
+                List<Photo> photos = db.photoDao().getAll();
+
                 Snackbar.make(view, "Upload Activity", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.collections:

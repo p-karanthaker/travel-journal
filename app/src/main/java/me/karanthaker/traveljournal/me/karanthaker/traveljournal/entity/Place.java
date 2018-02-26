@@ -16,13 +16,20 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * Created by KTHAKER on 26/02/2018.
  */
 
-@Entity(foreignKeys = @ForeignKey
-                                (
-                                    entity = Photo.class,
-                                    parentColumns = "id",
-                                    childColumns = "photo_id",
-                                    onDelete = CASCADE)
-                                )
+@Entity(foreignKeys = {
+        @ForeignKey(
+                entity = Photo.class,
+                parentColumns = "id",
+                childColumns = "photo_id",
+                onDelete = CASCADE
+        ),
+        @ForeignKey(
+                entity = Holiday.class,
+                parentColumns = "id",
+                childColumns = "holiday_id",
+                onDelete = CASCADE
+        )}
+)
 public class Place {
 
     @PrimaryKey(autoGenerate = true)
@@ -46,6 +53,9 @@ public class Place {
 
     @ColumnInfo(name = "photo_id")
     private int photo_id;
+
+    @ColumnInfo(name = "holiday_id")
+    private int holiday_id;
 
     @ColumnInfo(name = "companions")
     private String companions;
@@ -104,6 +114,14 @@ public class Place {
 
     public void setPhoto_id(int photo_id) {
         this.photo_id = photo_id;
+    }
+
+    public int getHoliday_id() {
+        return holiday_id;
+    }
+
+    public void setHoliday_id(int holiday_id) {
+        this.holiday_id = holiday_id;
     }
 
     public String getCompanions() {

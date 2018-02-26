@@ -30,6 +30,9 @@ public class Holiday {
     @TypeConverters({Converters.class})
     private Date endDate;
 
+    @ColumnInfo(name = "notes")
+    private String notes;
+
     public Holiday(String name, Date startDate, Date endDate) {
         this.name = name;
         this.startDate = startDate;
@@ -66,5 +69,13 @@ public class Holiday {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
