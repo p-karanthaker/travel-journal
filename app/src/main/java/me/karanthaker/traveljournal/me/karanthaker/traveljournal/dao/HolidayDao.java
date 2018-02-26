@@ -7,5 +7,7 @@ import android.arch.persistence.room.Dao;
  */
 
 @Dao
-public class HolidayDao {
+public interface HolidayDao {
+
+
 }

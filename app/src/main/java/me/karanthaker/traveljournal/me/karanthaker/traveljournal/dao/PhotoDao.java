@@ -7,5 +7,5 @@ import android.arch.persistence.room.Dao;
  */
 
 @Dao
-public class PhotosDao {
+public interface PhotoDao {
 }
