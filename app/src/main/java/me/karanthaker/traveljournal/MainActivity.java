@@ -18,16 +18,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.HolidayListAdapter;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.PhotoListAdapter;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.HolidayViewModel;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.PhotoViewModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private PhotoViewModel photoViewModel;
+    private HolidayViewModel holidayViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,12 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
+
+        /** TESTING ADDING ITEMS TO VIEW */
         final PhotoListAdapter adapter = new PhotoListAdapter(this);
-        recyclerView.setAdapter(adapter);
+        final HolidayListAdapter adapter1 = new HolidayListAdapter(this);
+
+        recyclerView.setAdapter(adapter1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
@@ -51,14 +61,32 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        holidayViewModel = ViewModelProviders.of(this).get(HolidayViewModel.class);
+
+        holidayViewModel.getAllHolidays().observe(this, new Observer<List<Holiday>>() {
+            @Override
+            public void onChanged(@Nullable List<Holiday> holidays) {
+                adapter1.setHolidays(holidays);
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                photoViewModel.insert(new Photo("/dummy/path/pic.png"));
+                //photoViewModel.insert(new Photo("/dummy/path/pic.png"));
+
+                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    holidayViewModel.insert(new Holiday("MyHoliday", f.parse("2018-01-01"), f.parse("2018-01-02")));
+                } catch (ParseException pe) {
+                    System.out.println(pe.getLocalizedMessage());
+                }
                 Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();
             }
         });
+
+        /** END TESTING */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
