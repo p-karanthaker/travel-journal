@@ -1,51 +1,62 @@
 package me.karanthaker.traveljournal;
 
-import android.arch.persistence.room.Room;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.database.AppDatabase;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.PhotoListAdapter;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.PhotoViewModel;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private AppDatabase db;
+    private PhotoViewModel photoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialise database
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, getString(R.string.database)).build();
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final PhotoListAdapter adapter = new PhotoListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
+
+        photoViewModel.getAllPhotos().observe(this, new Observer<List<Photo>>() {
+            @Override
+            public void onChanged(@Nullable List<Photo> photos) {
+                adapter.setPhotos(photos);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                photoViewModel.insert(new Photo("/dummy/path/pic.png"));
+                Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -105,9 +116,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.new_photo:
                 // TODO: Start upload activity.
-                db.photoDao().insertAll(new Photo("/dummy/path/pic.png"));
-                List<Photo> photos = db.photoDao().getAll();
-
                 Snackbar.make(view, "Upload Activity", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.collections:
