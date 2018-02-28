@@ -24,7 +24,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
 
         private HolidayViewHolder(View itemView) {
             super(itemView);
-            holidayItemView = itemView.findViewById(R.id.textView);
+            holidayItemView = itemView.findViewById(R.id.holidayName);
         }
     }
 

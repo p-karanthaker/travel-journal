@@ -99,7 +99,14 @@ public class MainActivity extends AppCompatActivity
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
                 Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
+                // TODO: Remove item from list if swiped left
+                // TODO: Share item if swiped right
 
+                // TODO: Create add item activity
+                // TODO: Create edit item activity
+
+                // TODO: Add on press to open item activity
+                // TODO: Add on long press to open edit item activity
                 //contacts.remove(viewHolder.getAdapterPosition());
                 //ca.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
