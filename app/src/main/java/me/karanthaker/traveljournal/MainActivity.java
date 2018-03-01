@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
-                Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
-                // TODO: Remove item from list if swiped left
+                if (swipeDir == ItemTouchHelper.LEFT) {
+                    holidayViewModel.delete(holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()));
+                    Toast.makeText(getApplicationContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
+                }
                 // TODO: Share item if swiped right
 
                 // TODO: Create add item activity
