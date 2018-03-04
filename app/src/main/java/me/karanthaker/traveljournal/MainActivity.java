@@ -109,13 +109,10 @@ public class MainActivity extends AppCompatActivity
                     Intent intent = new Intent(MainActivity.this, EditHoliday.class);
                     MainActivity.this.startActivity(intent);
                 }
-                // TODO: Share item if swiped right
 
-                // TODO: Create add item activity
-                // TODO: Create edit item activity
+                adapter1.notifyItemChanged(viewHolder.getAdapterPosition());
 
                 // TODO: Add on press to open item activity
-                // TODO: Add on long press to open edit item activity
                 //contacts.remove(viewHolder.getAdapterPosition());
                 //ca.notifyItemRemoved(viewHolder.getAdapterPosition());
             }
