@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(getApplicationContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
                 } else if (swipeDir == ItemTouchHelper.RIGHT) {
                     Intent intent = new Intent(MainActivity.this, EditHoliday.class);
+                    intent.putExtra("HOLIDAY_ID", holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()).getId());
                     MainActivity.this.startActivity(intent);
                 }
 

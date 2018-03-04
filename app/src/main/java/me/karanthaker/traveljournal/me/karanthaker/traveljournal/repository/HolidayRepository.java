@@ -29,12 +29,55 @@ public class HolidayRepository {
         return allHolidays;
     }
 
+    public Holiday getHolidayById(int holidayId) {
+        Holiday holiday = null;
+        try {
+            holiday = new getAsyncTask(holidayDao).execute(holidayId).get();
+        } catch (Exception e) {
+
+        }
+        return holiday;
+    }
+
+    public void update(Holiday holiday) {
+        new updateAsyncTask(holidayDao).execute(holiday);
+    }
+
     public void insert(Holiday holiday) {
         new insertAsyncTask(holidayDao).execute(holiday);
     }
 
     public void delete(Holiday holiday) {
         new deleteAsyncTask(holidayDao).execute(holiday);
+    }
+
+    private static class getAsyncTask extends AsyncTask<Integer, Void, Holiday> {
+
+        private HolidayDao holidayDao;
+
+        getAsyncTask(HolidayDao dao) {
+            holidayDao = dao;
+        }
+
+        @Override
+        protected Holiday doInBackground(Integer... ids) {
+            return holidayDao.getHolidayById(ids[0]);
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<Holiday, Void, Void> {
+
+        private HolidayDao holidayDao;
+
+        updateAsyncTask(HolidayDao dao) {
+            holidayDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Holiday... holidays) {
+            holidayDao.update(holidays[0]);
+            return null;
+        }
     }
 
     private static class insertAsyncTask extends AsyncTask<Holiday, Void, Void> {

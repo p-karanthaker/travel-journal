@@ -29,6 +29,14 @@ public class HolidayViewModel extends AndroidViewModel {
         return allHolidays;
     }
 
+    public Holiday getHolidayById(int holidayId) {
+        return repository.getHolidayById(holidayId);
+    }
+
+    public void update(Holiday holiday) {
+        repository.update(holiday);
+    }
+
     public void insert(Holiday holiday) {
         repository.insert(holiday);
     }
