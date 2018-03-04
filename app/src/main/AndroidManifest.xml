@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddHoliday" />
-        <activity android:name=".EditHoliday"></activity>
+        <activity android:name=".EditHoliday" />
+        <activity android:name=".AddPlace"></activity>
     </application>
 
 </manifest>
