@@ -2,6 +2,7 @@ package me.karanthaker.traveljournal;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -78,13 +79,16 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 //photoViewModel.insert(new Photo("/dummy/path/pic.png"));
 
-                SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+                /*SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     holidayViewModel.insert(new Holiday("MyHoliday", f.parse("2018-01-01"), f.parse("2018-01-02")));
                 } catch (ParseException pe) {
                     System.out.println(pe.getLocalizedMessage());
                 }
-                Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();*/
+
+                Intent intent = new Intent(MainActivity.this, AddHoliday.class);
+                MainActivity.this.startActivity(intent);
             }
         });
 

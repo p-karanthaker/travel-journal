@@ -33,6 +33,10 @@ public class Holiday {
     @ColumnInfo(name = "notes")
     private String notes;
 
+    public Holiday() {
+
+    }
+
     public Holiday(String name, Date startDate, Date endDate) {
         this.name = name;
         this.startDate = startDate;

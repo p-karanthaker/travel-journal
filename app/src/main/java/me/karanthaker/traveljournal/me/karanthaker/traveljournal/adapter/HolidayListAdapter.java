@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import me.karanthaker.traveljournal.R;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 
 /**
  * Created by KTHAKER on 27/02/2018.
@@ -20,11 +21,15 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.HolidayViewHolder> {
 
     class HolidayViewHolder extends RecyclerView.ViewHolder {
-        private final TextView holidayItemView;
+        private final TextView holidayNameView;
+        private final TextView holidayStartDateView;
+        private final TextView holidayEndDateView;
 
         private HolidayViewHolder(View itemView) {
             super(itemView);
-            holidayItemView = itemView.findViewById(R.id.holidayName);
+            holidayNameView = itemView.findViewById(R.id.holidayName);
+            holidayStartDateView = itemView.findViewById(R.id.holidayStart);
+            holidayEndDateView = itemView.findViewById(R.id.holidayEnd);
         }
     }
 
@@ -45,10 +50,14 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     public void onBindViewHolder(HolidayViewHolder holder, int position) {
         if (holidays != null) {
             Holiday current = holidays.get(position);
-            holder.holidayItemView.setText(current.getName());
+            holder.holidayNameView.setText(current.getName());
+
+            final SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
+            holder.holidayStartDateView.setText(f.format(current.getStartDate()));
+            holder.holidayEndDateView.setText(f.format(current.getEndDate()));
         } else {
             // Covers the case of data not being ready yet.
-            holder.holidayItemView.setText("No Holidays");
+            holder.holidayNameView.setText("No Holidays");
         }
     }
 
