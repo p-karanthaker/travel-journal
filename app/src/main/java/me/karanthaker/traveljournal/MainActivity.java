@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity
                 if (swipeDir == ItemTouchHelper.LEFT) {
                     holidayViewModel.delete(holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()));
                     Toast.makeText(getApplicationContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
+                } else if (swipeDir == ItemTouchHelper.RIGHT) {
+                    Intent intent = new Intent(MainActivity.this, EditHoliday.class);
+                    MainActivity.this.startActivity(intent);
                 }
                 // TODO: Share item if swiped right
 
