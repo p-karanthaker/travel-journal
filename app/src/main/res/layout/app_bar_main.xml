@@ -22,12 +22,53 @@
 
     <include layout="@layout/content_main" />
 
-    <android.support.design.widget.FloatingActionButton
+    <com.getbase.floatingactionbutton.AddFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
+        app:fab_colorNormal="@color/red"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:animateLayoutChanges="true"
+        app:fab_labelsPosition="left"
+        app:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_holiday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_title="@string/add_holiday"
+            app:fab_icon="@drawable/ic_airplane_white_24dp"
+            app:fab_colorNormal="@color/pink"
+            app:fab_colorPressed="@color/pink_pressed"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_title="@string/add_place"
+            app:fab_icon="@drawable/ic_place_white_24dp"
+            app:fab_colorNormal="@color/purple"
+            app:fab_colorPressed="@color/purple_pressed"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_title="@string/add_photo"
+            app:fab_icon="@drawable/ic_camera_white_24dp"
+            app:fab_colorNormal="@color/indigo"
+            app:fab_colorPressed="@color/indigo_pressed"/>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

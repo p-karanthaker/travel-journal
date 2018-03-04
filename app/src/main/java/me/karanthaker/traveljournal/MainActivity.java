@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,7 +76,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        AddFloatingActionButton fab = (AddFloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionsMenu fmenu = (FloatingActionsMenu) findViewById(R.id.fam);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,10 +91,41 @@ public class MainActivity extends AppCompatActivity
                 }
                 Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();*/
 
-                Intent intent = new Intent(MainActivity.this, AddHoliday.class);
-                MainActivity.this.startActivity(intent);
+
+                if (fmenu.isExpanded())
+                    fmenu.collapse();
+                else
+                    fmenu.expand();
             }
         });
+
+        FloatingActionButton fabAddHol = (FloatingActionButton) findViewById(R.id.fab_add_holiday);
+        FloatingActionButton fabAddPlace = (FloatingActionButton) findViewById(R.id.fab_add_place);
+        FloatingActionButton fabAddPhoto = (FloatingActionButton) findViewById(R.id.fab_add_photo);
+
+        View.OnClickListener fabListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getIntent();
+                switch (view.getId()) {
+                    case R.id.fab_add_holiday:
+                        intent = new Intent(MainActivity.this, AddHoliday.class);
+                        break;
+                    case R.id.fab_add_place:
+                        intent = new Intent(MainActivity.this, AddPlace.class);
+                        break;
+                    case R.id.fab_add_photo:
+                        //intent = new Intent(MainActivity.this, AddPhoto.class);
+                        break;
+                }
+                fmenu.collapse();
+                MainActivity.this.startActivity(intent);
+            }
+        };
+
+        fabAddHol.setOnClickListener(fabListener);
+        fabAddPlace.setOnClickListener(fabListener);
+        fabAddPhoto.setOnClickListener(fabListener);
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 

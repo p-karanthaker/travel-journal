@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TravelJournal</string>
+    <string name="app_name">Travel Journal</string>
     <string name="database">travel-journal</string>
     <string name="confirm">OK</string>
 
@@ -10,4 +10,10 @@
 
     <string name="add_holiday">Add Holiday</string>
     <string name="edit_holiday">Edit Holiday</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="add_place">Add Place</string>
+    <string name="edit_place">Edit Place</string>
+    <string name="share">Share</string>
+    <string name="open">Open</string>
 </resources>
