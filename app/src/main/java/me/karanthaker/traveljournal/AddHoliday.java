@@ -71,7 +71,9 @@ public class AddHoliday extends AppCompatActivity {
     }
 
     private boolean validDates(Date startDate, Date endDate) {
-        if (startDate.compareTo(endDate) > 0) {
+        if (startDate == null || endDate == null) {
+            return false;
+        } else if (startDate.compareTo(endDate) > 0) {
             return false;
         }
         return true;
