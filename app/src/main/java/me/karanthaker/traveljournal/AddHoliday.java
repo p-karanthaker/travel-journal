@@ -30,8 +30,6 @@ public class AddHoliday extends AppCompatActivity {
 
     private TextView holidayStart;
     private TextView holidayEnd;
-    private Date startDate;
-    private Date endDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +100,6 @@ public class AddHoliday extends AppCompatActivity {
                     }
                     else if (view.getId() == R.id.setHolidayEnd) {
                         updateLabel(holidayEnd);
-                        Date endDate = calendar.getTime();
                         holiday.setEndDate(calendar.getTime());
                     }
                 }
