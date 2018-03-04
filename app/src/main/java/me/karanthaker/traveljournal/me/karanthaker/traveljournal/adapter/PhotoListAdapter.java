@@ -28,7 +28,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     }
 
     private final LayoutInflater mInflater;
-    private List<Photo> photos; // Cached copy of words
+    private List<Photo> photos;
 
     public PhotoListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);

@@ -2,7 +2,6 @@ package me.karanthaker.traveljournal.me.karanthaker.traveljournal.database;
 
 import android.os.AsyncTask;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 

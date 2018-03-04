@@ -38,7 +38,7 @@
                 android:layout_weight="1"
                 android:hint="Holiday Start" />
 
-            <Button
+            <Button style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/setHolidayStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:hint="Holiday End" />
 
-            <Button
+            <Button style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/setHolidayEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
 
         </LinearLayout>
 
-        <Button
+        <Button style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/add_holiday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -34,7 +34,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     }
 
     private final LayoutInflater mInflater;
-    private List<Holiday> holidays; // Cached copy of words
+    private List<Holiday> holidays;
 
     public HolidayListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);

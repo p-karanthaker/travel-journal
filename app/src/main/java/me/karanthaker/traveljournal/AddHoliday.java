@@ -2,24 +2,20 @@ package me.karanthaker.traveljournal;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.HolidayListAdapter;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.HolidayViewModel;
 
@@ -38,7 +34,7 @@ public class AddHoliday extends AppCompatActivity {
 
 
         final EditText holidayName = (EditText) findViewById(R.id.holidayName);
-        holidayStart  = (TextView) findViewById(R.id.holidayStart);
+        holidayStart = (TextView) findViewById(R.id.holidayStart);
         holidayEnd = (TextView) findViewById(R.id.holidayEnd);
 
         Button setHolidayStart = (Button) findViewById(R.id.setHolidayStart);
@@ -83,7 +79,6 @@ public class AddHoliday extends AppCompatActivity {
     }
 
 
-
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
@@ -97,8 +92,7 @@ public class AddHoliday extends AppCompatActivity {
                     if (view.getId() == R.id.setHolidayStart) {
                         updateLabel(holidayStart);
                         holiday.setStartDate(calendar.getTime());
-                    }
-                    else if (view.getId() == R.id.setHolidayEnd) {
+                    } else if (view.getId() == R.id.setHolidayEnd) {
                         updateLabel(holidayEnd);
                         holiday.setEndDate(calendar.getTime());
                     }

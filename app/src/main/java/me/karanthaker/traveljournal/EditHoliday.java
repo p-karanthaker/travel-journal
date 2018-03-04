@@ -1,13 +1,11 @@
 package me.karanthaker.traveljournal;
 
 import android.app.DatePickerDialog;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -17,12 +15,9 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.HolidayDao;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.repository.HolidayRepository;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.HolidayViewModel;
 
 public class EditHoliday extends AppCompatActivity {
@@ -108,8 +103,7 @@ public class EditHoliday extends AppCompatActivity {
                     if (view.getId() == R.id.setHolidayStart) {
                         updateLabel(holidayStartDate);
                         editHoliday.setStartDate(calendar.getTime());
-                    }
-                    else if (view.getId() == R.id.setHolidayEnd) {
+                    } else if (view.getId() == R.id.setHolidayEnd) {
                         updateLabel(holidayEndDate);
                         editHoliday.setEndDate(calendar.getTime());
                     }

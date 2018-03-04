@@ -24,8 +24,6 @@ import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.HolidayListAdapter;
