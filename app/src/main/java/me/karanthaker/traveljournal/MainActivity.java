@@ -1,95 +1,40 @@
 package me.karanthaker.traveljournal;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.util.List;
-
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.HolidayListAdapter;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter.PhotoListAdapter;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.HolidayViewModel;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.PhotoViewModel;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private PhotoViewModel photoViewModel;
-    private HolidayViewModel holidayViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-
-        /** TESTING ADDING ITEMS TO VIEW */
-        final PhotoListAdapter adapter = new PhotoListAdapter(this);
-        final HolidayListAdapter adapter1 = new HolidayListAdapter(this);
-
-        recyclerView.setAdapter(adapter1);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        photoViewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
-
-        photoViewModel.getAllPhotos().observe(this, new Observer<List<Photo>>() {
-            @Override
-            public void onChanged(@Nullable List<Photo> photos) {
-                adapter.setPhotos(photos);
-            }
-        });
-
-        holidayViewModel = ViewModelProviders.of(this).get(HolidayViewModel.class);
-
-        holidayViewModel.getAllHolidays().observe(this, new Observer<List<Holiday>>() {
-            @Override
-            public void onChanged(@Nullable List<Holiday> holidays) {
-                adapter1.setHolidays(holidays);
-            }
-        });
-
-        AddFloatingActionButton fab = (AddFloatingActionButton) findViewById(R.id.fab);
-        final FloatingActionsMenu fmenu = (FloatingActionsMenu) findViewById(R.id.fam);
+        AddFloatingActionButton fab = findViewById(R.id.fab);
+        final FloatingActionsMenu fmenu = findViewById(R.id.fam);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //photoViewModel.insert(new Photo("/dummy/path/pic.png"));
-
-                /*SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    holidayViewModel.insert(new Holiday("MyHoliday", f.parse("2018-01-01"), f.parse("2018-01-02")));
-                } catch (ParseException pe) {
-                    System.out.println(pe.getLocalizedMessage());
-                }
-                Snackbar.make(view, "Added photo.", Snackbar.LENGTH_LONG).show();*/
-
-
                 if (fmenu.isExpanded())
                     fmenu.collapse();
                 else
@@ -97,9 +42,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        FloatingActionButton fabAddHol = (FloatingActionButton) findViewById(R.id.fab_add_holiday);
-        FloatingActionButton fabAddPlace = (FloatingActionButton) findViewById(R.id.fab_add_place);
-        FloatingActionButton fabAddPhoto = (FloatingActionButton) findViewById(R.id.fab_add_photo);
+        FloatingActionButton fabAddHol = findViewById(R.id.fab_add_holiday);
+        FloatingActionButton fabAddPlace = findViewById(R.id.fab_add_place);
+        FloatingActionButton fabAddPhoto = findViewById(R.id.fab_add_photo);
 
         View.OnClickListener fabListener = new View.OnClickListener() {
             @Override
@@ -124,44 +69,6 @@ public class MainActivity extends AppCompatActivity
         fabAddHol.setOnClickListener(fabListener);
         fabAddPlace.setOnClickListener(fabListener);
         fabAddPhoto.setOnClickListener(fabListener);
-
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-
-                if (swipeDir == ItemTouchHelper.LEFT) {
-                    holidayViewModel.delete(holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()));
-                    Toast.makeText(getApplicationContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
-                } else if (swipeDir == ItemTouchHelper.RIGHT) {
-                    Intent intent = new Intent(MainActivity.this, EditHoliday.class);
-                    intent.putExtra("HOLIDAY_ID", holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()).getId());
-                    MainActivity.this.startActivity(intent);
-                }
-
-                adapter1.notifyItemChanged(viewHolder.getAdapterPosition());
-
-                // TODO: Add on press to open item activity
-                //contacts.remove(viewHolder.getAdapterPosition());
-                //ca.notifyItemRemoved(viewHolder.getAdapterPosition());
-            }
-
-            @Override
-            public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
-                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
-            }
-        };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        /** END TESTING */
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -174,34 +81,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -212,32 +97,36 @@ public class MainActivity extends AppCompatActivity
         View view = findViewById(R.id.drawer_layout);
 
         switch (id) {
-            case R.id.home:
-                // TODO: Start main activity.
-                Snackbar.make(view, "Main Activity", Snackbar.LENGTH_SHORT).show();
+            case R.id.my_holidays:
+                switchFragment(new HolidayFragment());
                 break;
-            case R.id.new_photo:
-                // TODO: Start upload activity.
-                Snackbar.make(view, "Upload Activity", Snackbar.LENGTH_SHORT).show();
+            case R.id.my_places:
+                //switchFragment(new PlacesFragment());
                 break;
-            case R.id.collections:
-                // TODO: Start collections activity.
-                Snackbar.make(view, "Collections Activity", Snackbar.LENGTH_SHORT).show();
+            case R.id.my_photos:
+                //switchFragment(new PhotosFragment());
                 break;
             case R.id.search:
-                // TODO: Start search activity.
+                // TODO: Start search fragment
                 Snackbar.make(view, "Search Activity", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.settings:
-                // TODO: Start settings activity.
+                // TODO: Start settings fragment
                 Snackbar.make(view, "Settings Activity", Snackbar.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void switchFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
 }

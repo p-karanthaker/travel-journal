@@ -7,17 +7,17 @@
         android:checkableBehavior="single"
         android:id="@+id/menu_top">
         <item
-            android:id="@+id/home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:id="@+id/my_holidays"
+            android:icon="@drawable/ic_airplane_white_24dp"
+            android:title="My Holidays" />
         <item
-            android:id="@+id/new_photo"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="New Photo" />
+            android:id="@+id/my_places"
+            android:icon="@drawable/ic_place_white_24dp"
+            android:title="My Places" />
         <item
-            android:id="@+id/collections"
+            android:id="@+id/my_photos"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Collections" />
+            android:title="My Photos" />
         <item
             android:id="@+id/search"
             android:icon="@drawable/ic_search_black_24dp"
