@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".AddHoliday" />
         <activity android:name=".EditHoliday" />
-        <activity android:name=".AddPlace"></activity>
+        <activity android:name=".AddPlace" />
+        <activity android:name=".EditPlace" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

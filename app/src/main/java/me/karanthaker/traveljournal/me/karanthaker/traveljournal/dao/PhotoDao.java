@@ -17,10 +17,10 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 @Dao
 public interface PhotoDao {
 
-    @Query("SELECT id, path FROM photo ORDER BY id ASC")
+    @Query("SELECT * FROM photo ORDER BY id ASC")
     LiveData<List<Photo>> getAllPhotos();
 
-    @Query("SELECT id, path FROM photo WHERE id IN (:photoIds)")
+    @Query("SELECT * FROM photo WHERE id IN (:photoIds)")
     List<Photo> loadAllByIds(int[] photoIds);
 
     @Insert

@@ -29,34 +29,11 @@
                 android:layout_height="50dp"
                 android:textSize="30sp"/>
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/holidayStart"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:layout_height="0dp">
-
-                <TextView
-                    android:id="@+id/holidayStart"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:text="to"
-                    android:textAlignment="center"/>
-
-                <TextView
-                    android:id="@+id/holidayEnd"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"/>
-            </LinearLayout>
+                android:layout_height="50dp"
+                android:textSize="20sp" />
 
         </LinearLayout>
 

@@ -12,19 +12,19 @@ import java.util.List;
 import java.util.Locale;
 
 import me.karanthaker.traveljournal.R;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 
 /**
  * Created by KTHAKER on 27/02/2018.
  */
 
-public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.HolidayViewHolder> {
+public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.PlaceViewHolder> {
 
-    class HolidayViewHolder extends RecyclerView.ViewHolder {
+    class PlaceViewHolder extends RecyclerView.ViewHolder {
         private final TextView holidayNameView;
         private final TextView holidayStartDateView;
 
-        private HolidayViewHolder(View itemView) {
+        private PlaceViewHolder(View itemView) {
             super(itemView);
             holidayNameView = itemView.findViewById(R.id.holidayName);
             holidayStartDateView = itemView.findViewById(R.id.holidayStart);
@@ -32,28 +32,26 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     }
 
     private final LayoutInflater mInflater;
-    private List<Holiday> holidays;
+    private List<Place> places;
 
-    public HolidayListAdapter(Context context) {
+    public PlaceListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public HolidayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PlaceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new HolidayViewHolder(itemView);
+        return new PlaceViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(HolidayViewHolder holder, int position) {
-        if (holidays != null) {
-            Holiday current = holidays.get(position);
+    public void onBindViewHolder(PlaceViewHolder holder, int position) {
+        if (places != null) {
+            Place current = places.get(position);
             holder.holidayNameView.setText(current.getName());
 
             final SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
-            String startDate = f.format(current.getStartDate());
-            String endDate = f.format(current.getEndDate());
-            String date = String.format("%s - %s", startDate, endDate);
+            String date = f.format(current.getDate());
             holder.holidayStartDateView.setText(date);
         } else {
             // Covers the case of data not being ready yet.
@@ -61,8 +59,8 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
         }
     }
 
-    public void setHolidays(List<Holiday> holidays) {
-        this.holidays = holidays;
+    public void setPlaces(List<Place> places) {
+        this.places = places;
         notifyDataSetChanged();
     }
 
@@ -70,8 +68,8 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     // holidays has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (holidays != null)
-            return holidays.size();
+        if (places != null)
+            return places.size();
         else return 0;
     }
 

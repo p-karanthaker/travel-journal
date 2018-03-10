@@ -2,6 +2,7 @@ package me.karanthaker.traveljournal;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,37 +19,48 @@ import java.util.Locale;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.PlaceViewModel;
 
-public class AddPlace extends AppCompatActivity {
-    private final Calendar calendar = Calendar.getInstance();
-    private final Place place = new Place();
+public class EditPlace extends AppCompatActivity {
 
-    private TextView placeDate;
+    private final Calendar calendar = Calendar.getInstance();
+    private Place editPlace;
+
+    private TextView date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_place);
 
+        Intent intent = getIntent();
+        final int placeId = intent.getIntExtra("PLACE_ID", -1);
+
+        final TextView activityTitle = (TextView) findViewById(R.id.holidayActivityTitle);
+        activityTitle.setText(R.string.edit_place);
+
+        final PlaceViewModel placeViewModel = ViewModelProviders.of(this).get(PlaceViewModel.class);
+        editPlace = placeViewModel.getPlaceById(placeId);
 
         final EditText placeName = (EditText) findViewById(R.id.placeName);
-        placeDate = (TextView) findViewById(R.id.placeDate);
+        date = (TextView) findViewById(R.id.placeDate);
+
+        placeName.setText(editPlace.getName());
+
+        SimpleDateFormat f = new SimpleDateFormat("dd-MMM-YYYY", Locale.UK);
+        date.setText(f.format(editPlace.getDate()));
 
         Button setHolidayStart = (Button) findViewById(R.id.setHolidayStart);
         setHolidayStart.setOnClickListener(listener);
 
-        Button confirm = (Button) findViewById(R.id.add_place);
-
-        final PlaceViewModel placeViewModel = ViewModelProviders.of(this).get(PlaceViewModel.class);
-        confirm.setOnClickListener(new View.OnClickListener() {
-
+        Button confirmEdit = (Button) findViewById(R.id.add_place);
+        confirmEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String name = placeName.getText().toString();
                 if (name.isEmpty()) {
                     Snackbar.make(view, "Place name required!", Snackbar.LENGTH_LONG).show();
                 } else {
-                    place.setName(name);
-                    placeViewModel.insert(place);
+                    editPlace.setName(name);
+                    placeViewModel.update(editPlace);
                     finish();
                 }
             }
@@ -61,7 +73,6 @@ public class AddPlace extends AppCompatActivity {
         textView.setText(f.format(calendar.getTime()));
     }
 
-
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
@@ -72,12 +83,12 @@ public class AddPlace extends AppCompatActivity {
                     calendar.set(Calendar.MONTH, month);
                     calendar.set(Calendar.DAY_OF_MONTH, day);
 
-                    updateLabel(placeDate);
-                    place.setDate(calendar.getTime());
+                    updateLabel(EditPlace.this.date);
+                    editPlace.setDate(calendar.getTime());
                 }
             };
 
-            new DatePickerDialog(AddPlace.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(EditPlace.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
 
         }
     };

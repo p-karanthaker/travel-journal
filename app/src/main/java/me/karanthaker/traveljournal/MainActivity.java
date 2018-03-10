@@ -96,12 +96,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         View view = findViewById(R.id.drawer_layout);
 
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         switch (id) {
             case R.id.my_holidays:
-                switchFragment(new HolidayFragment());
+                if (!(currentFragment instanceof HolidayFragment))
+                    switchFragment(new HolidayFragment());
                 break;
             case R.id.my_places:
-                //switchFragment(new PlacesFragment());
+                if (!(currentFragment instanceof PlacesFragment))
+                    switchFragment(new PlacesFragment());
                 break;
             case R.id.my_photos:
                 //switchFragment(new PhotosFragment());
