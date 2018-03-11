@@ -1,6 +1,7 @@
 package me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import me.karanthaker.traveljournal.OpenHoliday;
 import me.karanthaker.traveljournal.R;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
 
@@ -45,7 +47,7 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(HolidayViewHolder holder, int position) {
+    public void onBindViewHolder(HolidayViewHolder holder, final int position) {
         if (holidays != null) {
             Holiday current = holidays.get(position);
             holder.holidayNameView.setText(current.getName());
@@ -59,6 +61,16 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
             // Covers the case of data not being ready yet.
             holder.holidayNameView.setText("No Holidays");
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, OpenHoliday.class);
+                intent.putExtra("HOLIDAY_ID", holidays.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void setHolidays(List<Holiday> holidays) {

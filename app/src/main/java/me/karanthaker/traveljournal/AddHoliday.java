@@ -22,7 +22,7 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.Holid
 public class AddHoliday extends AppCompatActivity {
 
     private final Calendar calendar = Calendar.getInstance();
-    private final Holiday holiday = new Holiday();
+    private Holiday holiday = new Holiday();
 
     private TextView holidayStart;
     private TextView holidayEnd;
@@ -32,31 +32,57 @@ public class AddHoliday extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_holiday);
 
+        final boolean newItem = getIntent().getBooleanExtra("NEW_ITEM", true);
+        final int holidayId = getIntent().getIntExtra("HOLIDAY_ID", -1);
 
-        final EditText holidayName = (EditText) findViewById(R.id.holidayName);
-        holidayStart = (TextView) findViewById(R.id.holidayStart);
-        holidayEnd = (TextView) findViewById(R.id.holidayEnd);
+        final HolidayViewModel holidayViewModel = ViewModelProviders.of(this).get(HolidayViewModel.class);
 
-        Button setHolidayStart = (Button) findViewById(R.id.setHolidayStart);
-        Button setHolidayEnd = (Button) findViewById(R.id.setHolidayEnd);
+        if (holidayId > -1) {
+            final TextView activityTitle = (TextView) findViewById(R.id.holidayActivityTitle);
+            activityTitle.setText(R.string.edit_holiday);
+            holiday = holidayViewModel.getHolidayById(holidayId);
+        }
+
+
+        final EditText holidayName = findViewById(R.id.holidayName);
+        final EditText additionalNotes = findViewById(R.id.holidayNotes);
+        holidayStart = findViewById(R.id.holidayStart);
+        holidayEnd = findViewById(R.id.holidayEnd);
+
+        Button setHolidayStart = findViewById(R.id.setHolidayStart);
+        Button setHolidayEnd = findViewById(R.id.setHolidayEnd);
         setHolidayStart.setOnClickListener(listener);
         setHolidayEnd.setOnClickListener(listener);
 
-        Button confirm = (Button) findViewById(R.id.add_holiday);
 
-        final HolidayViewModel holidayViewModel = ViewModelProviders.of(this).get(HolidayViewModel.class);
+        if (!newItem) {
+            holidayName.setText(holiday.getName());
+            additionalNotes.setText(holiday.getNotes());
+            SimpleDateFormat f = new SimpleDateFormat("dd-MMM-YYYY", Locale.UK);
+            holidayStart.setText(f.format(holiday.getStartDate()));
+            holidayEnd.setText(f.format(holiday.getEndDate()));
+        }
+
+        Button confirm = findViewById(R.id.add_holiday);
+
         confirm.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 final String name = holidayName.getText().toString();
+                final String notes = additionalNotes.getText().toString();
                 if (name.isEmpty()) {
                     Snackbar.make(view, "Holiday name required!", Snackbar.LENGTH_LONG).show();
                 } else if (!validDates(holiday.getStartDate(), holiday.getEndDate())) {
                     Snackbar.make(view, "Holiday end date cannot occur before start date!", Snackbar.LENGTH_LONG).show();
                 } else {
                     holiday.setName(name);
-                    holidayViewModel.insert(holiday);
+                    if (!notes.isEmpty())
+                        holiday.setNotes(notes);
+                    if (newItem)
+                        holidayViewModel.insert(holiday);
+                    else
+                        holidayViewModel.update(holiday);
                     finish();
                 }
             }

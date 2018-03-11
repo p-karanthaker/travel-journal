@@ -1,6 +1,7 @@
 package me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import me.karanthaker.traveljournal.OpenPlace;
 import me.karanthaker.traveljournal.R;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 
@@ -45,7 +47,7 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
     }
 
     @Override
-    public void onBindViewHolder(PlaceViewHolder holder, int position) {
+    public void onBindViewHolder(PlaceViewHolder holder, final int position) {
         if (places != null) {
             Place current = places.get(position);
             holder.holidayNameView.setText(current.getName());
@@ -57,6 +59,16 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
             // Covers the case of data not being ready yet.
             holder.holidayNameView.setText("No Holidays");
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, OpenPlace.class);
+                intent.putExtra("PLACE_ID", places.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void setPlaces(List<Place> places) {

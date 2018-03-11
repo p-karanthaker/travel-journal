@@ -68,8 +68,9 @@ public class PlacesFragment extends Fragment {
                     placeViewModel.delete(placeViewModel.getAllPlaces().getValue().get(viewHolder.getAdapterPosition()));
                     Toast.makeText(rootView.getContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
                 } else if (swipeDir == ItemTouchHelper.RIGHT) {
-                    Intent intent = new Intent(getActivity(), EditPlace.class);
+                    Intent intent = new Intent(getActivity(), AddPlace.class);
                     intent.putExtra("PLACE_ID", placeViewModel.getAllPlaces().getValue().get(viewHolder.getAdapterPosition()).getId());
+                    intent.putExtra("NEW_ITEM", false);
                     getActivity().startActivity(intent);
                 }
 

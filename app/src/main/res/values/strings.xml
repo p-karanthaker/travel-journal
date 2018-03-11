@@ -16,4 +16,10 @@
     <string name="edit_place">Edit Place</string>
     <string name="share">Share</string>
     <string name="open">Open</string>
+    <string name="notes">Notes:</string>
+    <string name="empty">Nothing to display</string>
+    <string name="location">Location</string>
+    <string name="unknown">Unknown</string>
+    <string name="hint_edit">Insert additional notes</string>
+    <string name="travel_companions">Travel Companions</string>
 </resources>

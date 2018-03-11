@@ -20,13 +20,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddHoliday" />
-        <activity android:name=".EditHoliday" />
         <activity android:name=".AddPlace" />
-        <activity android:name=".EditPlace" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAx3I38PUocUPjfubhZX5nAvd9qrd-2xFw"/>
+            android:value="AIzaSyAx3I38PUocUPjfubhZX5nAvd9qrd-2xFw" />
+
+        <activity android:name=".OpenHoliday" />
+        <activity android:name=".OpenPlace"></activity>
     </application>
 
 </manifest>

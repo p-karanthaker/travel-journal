@@ -26,11 +26,8 @@ public class Place {
     @TypeConverters({Converters.class})
     private Date date;
 
-    @ColumnInfo(name = "latitude")
-    private long latitude;
-
-    @ColumnInfo(name = "longitude")
-    private long longitude;
+    @ColumnInfo(name = "gPlaceId")
+    private String googlePlaceId;
 
     @ColumnInfo(name = "notes")
     private String notes;
@@ -71,20 +68,12 @@ public class Place {
         this.date = date;
     }
 
-    public long getLatitude() {
-        return latitude;
+    public String getGooglePlaceId() {
+        return googlePlaceId;
     }
 
-    public void setLatitude(long latitude) {
-        this.latitude = latitude;
-    }
-
-    public long getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(long longitude) {
-        this.longitude = longitude;
+    public void setGooglePlaceId(String googlePlaceId) {
+        this.googlePlaceId = googlePlaceId;
     }
 
     public String getNotes() {

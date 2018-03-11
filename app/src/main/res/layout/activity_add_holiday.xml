@@ -59,6 +59,14 @@
 
         </LinearLayout>
 
+        <EditText
+            android:id="@+id/holidayNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/hint_edit" />
+
         <Button style="@style/Widget.AppCompat.Button.Colored"
             android:id="@+id/add_holiday"
             android:layout_width="match_parent"

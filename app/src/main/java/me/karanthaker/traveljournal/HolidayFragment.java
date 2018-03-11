@@ -68,8 +68,9 @@ public class HolidayFragment extends Fragment {
                     holidayViewModel.delete(holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()));
                     Toast.makeText(rootView.getContext(), "Deleted holiday.", Toast.LENGTH_SHORT).show();
                 } else if (swipeDir == ItemTouchHelper.RIGHT) {
-                    Intent intent = new Intent(getActivity(), EditHoliday.class);
+                    Intent intent = new Intent(getActivity(), AddHoliday.class);
                     intent.putExtra("HOLIDAY_ID", holidayViewModel.getAllHolidays().getValue().get(viewHolder.getAdapterPosition()).getId());
+                    intent.putExtra("NEW_ITEM", false);
                     getActivity().startActivity(intent);
                 }
 
