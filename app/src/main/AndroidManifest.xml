@@ -24,7 +24,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAx3I38PUocUPjfubhZX5nAvd9qrd-2xFw" />
+            android:value="AIzaSyA0MtHNeA5hJB6FTadqSMVC5GMfUPKT678" />
 
         <activity android:name=".OpenHoliday" />
         <activity android:name=".OpenPlace" />
@@ -36,10 +36,11 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".EditPhoto"></activity>
+        <activity android:name=".EditPhoto" />
+        <activity android:name=".MapActivity"></activity>
     </application>
 
 </manifest>

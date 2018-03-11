@@ -25,6 +25,7 @@ import android.view.View;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -131,9 +132,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.my_photos:
                 switchFragment(new GalleryFragment());
                 break;
-            case R.id.search:
-                // TODO: Start search fragment
-                Snackbar.make(view, "Search Activity", Snackbar.LENGTH_SHORT).show();
+            case R.id.maps:
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
                 break;
             case R.id.settings:
                 // TODO: Start settings fragment

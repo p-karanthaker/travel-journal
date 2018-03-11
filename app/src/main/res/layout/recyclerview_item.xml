@@ -38,7 +38,7 @@
         </LinearLayout>
 
         <Button style="@style/Widget.AppCompat.Button.Colored"
-            android:id="@+id/button2"
+            android:id="@+id/shareItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
