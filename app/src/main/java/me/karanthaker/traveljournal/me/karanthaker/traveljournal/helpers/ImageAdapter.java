@@ -1,6 +1,12 @@
 package me.karanthaker.traveljournal.me.karanthaker.traveljournal.helpers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +15,16 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import me.karanthaker.traveljournal.OpenHoliday;
 import me.karanthaker.traveljournal.R;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 
 /**
  * Created by Karan on 10/03/2018.
@@ -19,19 +33,21 @@ import me.karanthaker.traveljournal.R;
 public class ImageAdapter extends BaseAdapter {
 
     private Context context;
+    private List<Photo> imageList;
 
     public ImageAdapter(Context context) {
         this.context = context;
+        this.imageList = new ArrayList<>();
     }
 
     @Override
     public int getCount() {
-        return thumbIds.length;
+        return imageList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return thumbIds[i];
+        return imageList.get(i);
     }
 
     @Override
@@ -51,67 +67,11 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         imageView.setAdjustViewBounds(true);
-        imageView.setImageResource(thumbIds[i]);
+        imageView.setImageURI(Uri.parse(imageList.get(i).getPath()));
         return imageView;
     }
 
-    private Integer[] thumbIds = {
-            R.drawable.sample_0,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-            R.drawable.sample_1,
-            R.drawable.sample_2,
-            R.drawable.sample_3,
-            R.drawable.sample_4,
-            R.drawable.sample_5,
-            R.drawable.sample_6,
-            R.drawable.sample_7,
-    };
+    public void setImageList(List<Photo> imageList) {
+        this.imageList = imageList;
+    }
 }

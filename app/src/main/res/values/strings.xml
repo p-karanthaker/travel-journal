@@ -22,4 +22,14 @@
     <string name="unknown">Unknown</string>
     <string name="hint_edit">Insert additional notes</string>
     <string name="travel_companions">Travel Companions</string>
+
+    <string name="welcome">
+        Welcome to Travel Journal\n
+        \n
+        - Slide the drawer out on the left to view your Holidays, Places, and Pictures.\n
+        \n
+        - Use the action button in the bottom right to add new Holidays, Places, and Pictures.\n
+        \n
+        - Swipe LEFT on an item to delete, swipe RIGHT to edit, and tap to open.
+    </string>
 </resources>

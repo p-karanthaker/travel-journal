@@ -20,6 +20,9 @@ public interface PhotoDao {
     @Query("SELECT * FROM photo ORDER BY id ASC")
     LiveData<List<Photo>> getAllPhotos();
 
+    @Query("SELECT * FROM photo ORDER BY id ASC")
+    List<Photo> getPhotoList();
+
     @Query("SELECT * FROM photo WHERE id IN (:photoIds)")
     List<Photo> loadAllByIds(int[] photoIds);
 

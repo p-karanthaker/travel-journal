@@ -21,6 +21,9 @@ public interface HolidayDao {
     @Query("SELECT * FROM holiday ORDER BY id ASC")
     LiveData<List<Holiday>> getAllHolidays();
 
+    @Query("SELECT * FROM holiday ORDER BY id ASC")
+    List<Holiday> getAll();
+
     @Query("SELECT * FROM holiday WHERE id = :holidayId")
     Holiday getHolidayById(int holidayId);
 

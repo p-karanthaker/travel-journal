@@ -29,6 +29,10 @@ public class PhotoRepository {
         return allPhotos;
     }
 
+    public List<Photo> getPhotoList() {
+        return photoDao.getPhotoList();
+    }
+
     public void insert(Photo photo) {
         new insertAsyncTask(photoDao).execute(photo);
     }

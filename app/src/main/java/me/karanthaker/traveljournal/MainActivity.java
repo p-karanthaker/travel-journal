@@ -1,10 +1,13 @@
 package me.karanthaker.traveljournal;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -25,11 +28,21 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.database.AppDatabase;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
+import me.karanthaker.traveljournal.me.karanthaker.traveljournal.repository.PhotoRepository;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                     switchFragment(new PlacesFragment());
                 break;
             case R.id.my_photos:
-                //switchFragment(new PhotosFragment());
+                switchFragment(new GalleryFragment());
                 break;
             case R.id.search:
                 // TODO: Start search fragment
@@ -144,7 +157,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private File createImageFile() throws IOException {
-        String mCurrentPhotoPath;
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
@@ -157,7 +169,6 @@ public class MainActivity extends AppCompatActivity
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
-        System.out.println(mCurrentPhotoPath);
         return image;
     }
 
@@ -180,6 +191,26 @@ public class MainActivity extends AppCompatActivity
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            // Add to database
+            PhotoRepository repository = new PhotoRepository(getApplication());
+            repository.insert(new Photo(mCurrentPhotoPath));
+            // EditPhoto activity (associate with holiday or place, tag location)
+            Intent intent = new Intent(MainActivity.this, EditPhoto.class);
+            intent.putExtra("PHOTO_PATH", mCurrentPhotoPath);
+            MainActivity.this.startActivity(intent);
+        } else {
+            try {
+                Files.deleteIfExists(Paths.get(mCurrentPhotoPath));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

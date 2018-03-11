@@ -4,6 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import com.google.android.gms.common.api.Api;
+
 import java.util.List;
 
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.HolidayDao;
@@ -27,6 +29,10 @@ public class HolidayRepository {
 
     public LiveData<List<Holiday>> getAllHolidays() {
         return allHolidays;
+    }
+
+    public List<Holiday> getAll() {
+        return holidayDao.getAll();
     }
 
     public Holiday getHolidayById(int holidayId) {

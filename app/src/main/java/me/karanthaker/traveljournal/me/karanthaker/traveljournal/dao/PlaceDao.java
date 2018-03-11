@@ -21,6 +21,9 @@ public interface PlaceDao {
     @Query("SELECT * FROM place ORDER BY id ASC")
     LiveData<List<Place>> getAllPlaces();
 
+    @Query("SELECT * FROM place ORDER BY id ASC")
+    List<Place> getAll();
+
     @Query("SELECT * FROM place WHERE id = :placeId")
     Place getPlaceById(int placeId);
 

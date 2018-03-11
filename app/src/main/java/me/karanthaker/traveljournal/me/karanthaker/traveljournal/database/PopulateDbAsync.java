@@ -30,13 +30,7 @@ public class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        // Clear db tables
-        photoDao.deleteAll();
-        holidayDao.deleteAll();
-        placeDao.deleteAll();
-
         // Insert dummy data
-        photoDao.insert(new Photo("/dummy/path/pic.png"));
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
