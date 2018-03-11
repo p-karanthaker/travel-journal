@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -69,6 +70,30 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
                 Intent intent = new Intent(context, OpenHoliday.class);
                 intent.putExtra("HOLIDAY_ID", holidays.get(position).getId());
                 context.startActivity(intent);
+            }
+        });
+
+        Button share = holder.itemView.findViewById(R.id.shareItem);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Holiday toShare = holidays.get(position);
+                Context context = view.getContext();
+                Intent shareItem = new Intent();
+                shareItem.setAction(Intent.ACTION_SEND);
+
+                final SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
+                String startDate = f.format(toShare.getStartDate());
+                String endDate = f.format(toShare.getEndDate());
+                String date = String.format("%s - %s", startDate, endDate);
+
+                String message = new StringBuilder("Hey! I went on holiday to ").append(toShare.getName()).append(" on: \n").append(date)
+                        .append("\nCheck it out! https://travel-journal.com/holiday/").append(toShare.getId())
+                        .append("\nNow I'm storing it in my Travel Journal app! You should download it too so you can share your adventures!").toString();
+
+                shareItem.putExtra(Intent.EXTRA_TEXT, message);
+                shareItem.setType("text/plain");
+                context.startActivity(shareItem);
             }
         });
     }

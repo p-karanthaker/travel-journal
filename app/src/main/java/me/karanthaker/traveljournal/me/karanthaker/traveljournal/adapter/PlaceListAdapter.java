@@ -3,9 +3,11 @@ package me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -67,6 +69,28 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
                 Intent intent = new Intent(context, OpenPlace.class);
                 intent.putExtra("PLACE_ID", places.get(position).getId());
                 context.startActivity(intent);
+            }
+        });
+
+        Button share = holder.itemView.findViewById(R.id.shareItem);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Place toShare = places.get(position);
+                Context context = view.getContext();
+                Intent shareItem = new Intent();
+                shareItem.setAction(Intent.ACTION_SEND);
+
+                final SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
+                String date = f.format(toShare.getDate());
+
+                String message = new StringBuilder("Hey! I visited ").append(toShare.getName()).append(" on: \n").append(date)
+                        .append("\nCheck it out! https://travel-journal.com/place/").append(toShare.getId())
+                        .append("\nNow I'm storing it in my Travel Journal app! You should download it too so you can share your adventures!").toString();
+
+                shareItem.putExtra(Intent.EXTRA_TEXT, message);
+                shareItem.setType("text/plain");
+                context.startActivity(shareItem);
             }
         });
     }
