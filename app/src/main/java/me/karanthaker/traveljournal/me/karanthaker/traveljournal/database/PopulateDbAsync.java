@@ -9,7 +9,6 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.HolidayDao;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.PhotoDao;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.PlaceDao;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 
 /**

@@ -1,29 +1,16 @@
 package me.karanthaker.traveljournal.me.karanthaker.traveljournal.helpers;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.karanthaker.traveljournal.OpenHoliday;
-import me.karanthaker.traveljournal.R;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 
 /**

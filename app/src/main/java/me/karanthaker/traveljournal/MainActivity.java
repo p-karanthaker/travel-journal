@@ -1,13 +1,10 @@
 package me.karanthaker.traveljournal;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -25,18 +22,14 @@ import android.view.View;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.database.AppDatabase;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Photo;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.repository.PhotoRepository;
 

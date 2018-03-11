@@ -23,20 +23,8 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Holiday;
 
 public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.HolidayViewHolder> {
 
-    class HolidayViewHolder extends RecyclerView.ViewHolder {
-        private final TextView holidayNameView;
-        private final TextView holidayStartDateView;
-
-        private HolidayViewHolder(View itemView) {
-            super(itemView);
-            holidayNameView = itemView.findViewById(R.id.holidayName);
-            holidayStartDateView = itemView.findViewById(R.id.holidayStart);
-        }
-    }
-
     private final LayoutInflater mInflater;
     private List<Holiday> holidays;
-
     public HolidayListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
@@ -110,6 +98,17 @@ public class HolidayListAdapter extends RecyclerView.Adapter<HolidayListAdapter.
         if (holidays != null)
             return holidays.size();
         else return 0;
+    }
+
+    class HolidayViewHolder extends RecyclerView.ViewHolder {
+        private final TextView holidayNameView;
+        private final TextView holidayStartDateView;
+
+        private HolidayViewHolder(View itemView) {
+            super(itemView);
+            holidayNameView = itemView.findViewById(R.id.holidayName);
+            holidayStartDateView = itemView.findViewById(R.id.holidayStart);
+        }
     }
 
 }

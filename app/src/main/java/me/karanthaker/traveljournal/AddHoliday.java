@@ -26,6 +26,30 @@ public class AddHoliday extends AppCompatActivity {
 
     private TextView holidayStart;
     private TextView holidayEnd;
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                    if (view.getId() == R.id.setHolidayStart) {
+                        updateLabel(holidayStart);
+                        holiday.setStartDate(calendar.getTime());
+                    } else if (view.getId() == R.id.setHolidayEnd) {
+                        updateLabel(holidayEnd);
+                        holiday.setEndDate(calendar.getTime());
+                    }
+                }
+            };
+
+            new DatePickerDialog(AddHoliday.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,30 +127,4 @@ public class AddHoliday extends AppCompatActivity {
         SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
         textView.setText(f.format(calendar.getTime()));
     }
-
-
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, day);
-
-                    if (view.getId() == R.id.setHolidayStart) {
-                        updateLabel(holidayStart);
-                        holiday.setStartDate(calendar.getTime());
-                    } else if (view.getId() == R.id.setHolidayEnd) {
-                        updateLabel(holidayEnd);
-                        holiday.setEndDate(calendar.getTime());
-                    }
-                }
-            };
-
-            new DatePickerDialog(AddHoliday.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
-        }
-    };
 }

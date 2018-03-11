@@ -23,16 +23,14 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 @Database(version = 1, entities = {Holiday.class, Place.class, Photo.class})
 public abstract class AppDatabase extends RoomDatabase {
 
-    // HolidayDao is a class annotated with @Dao.
-    abstract public HolidayDao holidayDao();
-
-    // PlaceDao is a class annotated with @Dao.
-    abstract public PlaceDao placeDao();
-
-    // PhotoDao is a class annotated with @Dao.
-    abstract public PhotoDao photoDao();
-
     private static AppDatabase INSTANCE;
+    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+        }
+    };
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -47,12 +45,12 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+    // HolidayDao is a class annotated with @Dao.
+    abstract public HolidayDao holidayDao();
 
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            new PopulateDbAsync(INSTANCE).execute();
-        }
-    };
+    // PlaceDao is a class annotated with @Dao.
+    abstract public PlaceDao placeDao();
+
+    // PhotoDao is a class annotated with @Dao.
+    abstract public PhotoDao photoDao();
 }

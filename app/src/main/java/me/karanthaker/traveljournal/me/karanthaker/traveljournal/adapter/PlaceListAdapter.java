@@ -3,7 +3,6 @@ package me.karanthaker.traveljournal.me.karanthaker.traveljournal.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,20 +23,8 @@ import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 
 public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.PlaceViewHolder> {
 
-    class PlaceViewHolder extends RecyclerView.ViewHolder {
-        private final TextView holidayNameView;
-        private final TextView holidayStartDateView;
-
-        private PlaceViewHolder(View itemView) {
-            super(itemView);
-            holidayNameView = itemView.findViewById(R.id.holidayName);
-            holidayStartDateView = itemView.findViewById(R.id.holidayStart);
-        }
-    }
-
     private final LayoutInflater mInflater;
     private List<Place> places;
-
     public PlaceListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
@@ -107,6 +94,17 @@ public class PlaceListAdapter extends RecyclerView.Adapter<PlaceListAdapter.Plac
         if (places != null)
             return places.size();
         else return 0;
+    }
+
+    class PlaceViewHolder extends RecyclerView.ViewHolder {
+        private final TextView holidayNameView;
+        private final TextView holidayStartDateView;
+
+        private PlaceViewHolder(View itemView) {
+            super(itemView);
+            holidayNameView = itemView.findViewById(R.id.holidayName);
+            holidayStartDateView = itemView.findViewById(R.id.holidayStart);
+        }
     }
 
 }

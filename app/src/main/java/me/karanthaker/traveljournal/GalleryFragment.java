@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +71,7 @@ public class GalleryFragment extends Fragment {
 
                 new AsyncTask<Void, Void, Void>() {
                     Bitmap bitmap;
+
                     @Override
                     protected Void doInBackground(Void... voids) {
                         bitmap = BitmapFactory.decodeFile(p.getPath());

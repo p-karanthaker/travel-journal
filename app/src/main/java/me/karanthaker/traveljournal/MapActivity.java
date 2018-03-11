@@ -3,10 +3,9 @@ package me.karanthaker.traveljournal;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.PlaceBufferResponse;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.dao.PlaceDao;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.database.AppDatabase;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
 

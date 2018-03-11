@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.entity.Place;
-import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.HolidayViewModel;
 import me.karanthaker.traveljournal.me.karanthaker.traveljournal.viewmodel.PlaceViewModel;
 
 public class AddPlace extends AppCompatActivity {
@@ -38,7 +37,36 @@ public class AddPlace extends AppCompatActivity {
     private Place place = new Place();
     private List<String> travelCompanions = new ArrayList<>();
     private TextView travelCompanionsText;
+    View.OnClickListener companionListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            EditText newCompanion = findViewById(R.id.newCompanion);
+            if (!newCompanion.getText().toString().isEmpty()) {
+                travelCompanions.add(newCompanion.getText().toString());
+                travelCompanionsText.setText(String.join(",", travelCompanions));
+            }
+        }
+    };
     private TextView placeDate;
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, day);
+
+                    updateLabel(placeDate);
+                    place.setDate(calendar.getTime());
+                }
+            };
+
+            new DatePickerDialog(AddPlace.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,36 +169,4 @@ public class AddPlace extends AppCompatActivity {
         SimpleDateFormat f = new SimpleDateFormat("dd MMM YYYY", Locale.UK);
         textView.setText(f.format(calendar.getTime()));
     }
-
-    View.OnClickListener companionListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            EditText newCompanion = findViewById(R.id.newCompanion);
-            if (!newCompanion.getText().toString().isEmpty()) {
-                travelCompanions.add(newCompanion.getText().toString());
-                travelCompanionsText.setText(String.join(",", travelCompanions));
-            }
-        }
-    };
-
-
-    View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, day);
-
-                    updateLabel(placeDate);
-                    place.setDate(calendar.getTime());
-                }
-            };
-
-            new DatePickerDialog(AddPlace.this, date, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-
-        }
-    };
 }
