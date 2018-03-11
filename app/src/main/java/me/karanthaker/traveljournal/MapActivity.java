@@ -62,7 +62,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         // Add marker
                         LatLng coords = myPlace.getLatLng();
-                        final Marker marker = googleMap.addMarker(new MarkerOptions().position(coords).title(myPlace.getName().toString()));
+                        final Marker marker = googleMap.addMarker(new MarkerOptions().position(coords).title(place.getName().toString()));
                         marker.setTag(place.getId());
                         places.release();
                     }
